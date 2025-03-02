@@ -86,7 +86,8 @@ def extract_CDS_from_gff(gff_file, fasta_file, requestedGeneID):
     #Shortening down dataframe even further to the proteins within the specific gene ids requested
     shortened = protein_coding[protein_coding['gene_ID'].isin(requestedGeneID)]
     
-    included_proteins = [["GFF Beginning"]]
+    columns = ["Gene Location", "Protein Id", "Start", "End", "Sequence"]
+    gene_information = []
     
     #Running through each entry in the severly cut down data frame into the refrenced position in the 
     for index, row in shortened.iterrows():
@@ -98,16 +99,14 @@ def extract_CDS_from_gff(gff_file, fasta_file, requestedGeneID):
         
         sequence = genome_dict[gene].seq[start:end]
         
-        
         if strand == '-':
             sequence = sequence.reverse_complement()
         
-        
-        # Print or return the sequence
-        print(f"Feature: {gene}")
-        print(f"Location: {start} - {end}")
-        print(f"Sequence: {sequence}")
-        print()  # Newline for separation
+        gene_information.append([gene, protein_id, start, end, str(sequence)])
+    
+    gene_df = pd.DataFrame(gene_information, columns=columns)
+    
+    return gene_df
         
 def extract_genes_from_gff(geneCommonName:list, gff_file) -> list:
     """Takes the gff file and converts a list of geneCommonNames into the gene ids for the NIH
@@ -140,26 +139,57 @@ def extract_genes_from_gff(geneCommonName:list, gff_file) -> list:
     return requestedGeneID
             
 # Example usage
-gff_file = "genomic.gff"  # Your GFF file
-fasta_file = "GCF_000001405.13_GRCh37_genomic.fna"  # Your FASTA file with the genome sequence
+gff_file = "C:\\Users\\brans\\Downloads\\Harvard_Hackathon\\genomic.gff"  # Your GFF file
+fasta_file = "C:\\Users\\brans\\Downloads\\Harvard_Hackathon\\GCF_000001405.13_GRCh37_genomic.fna"  # Your FASTA file with the genome sequence
+mutated_fasta_file = "C:\\Users\\brans\\Downloads\\Harvard_Hackathon\\modified_proteins.fna"
 
 test_genes = ['CTSB', 'SCN1A', 'ABAT', 'DNM1']
-rGeneID = extract_genes_from_gff(test_genes, gff_file)
+#rGeneID = extract_genes_from_gff(test_genes, gff_file)
 
-print(rGeneID)
-extract_CDS_from_gff(gff_file, fasta_file, rGeneID)
+#print(rGeneID)
+#extract_CDS_from_gff(gff_file, fasta_file, rGeneID)
 
-
-def compare_genes_to_sample(genes_to_look_at, gff_file1, fasta_file1, gff_file2, fasta_file2):
+def get_DNA_pct_change(DNA1, DNA2):
+    #Assuming the same length of each DNA and checking for similarity or difference
+    assert(len(DNA1) == len(DNA2))
     
-    transformed_genes = extract_genes_from_gff(genes_to_look_at, gff_file1)
-    print(transformed_genes)
+    print(DNA1)
+    print(DNA2)
+    print( )
+    
+    mutations = 0
+    
+    for i in range(len(DNA1)):
+        if DNA1[i] != DNA2[i]:
+            
+            mutations += 1
+    
+    
+    return (mutations / len(DNA1))
 
 
+def compare_genes(genes_to_look_at, gff_file1, fasta_file1, gff_file2, fasta_file2):
+    
+    #Transforming genes from international code like "ABAT" to a NIH Code like 1759
+    requested_genes = extract_genes_from_gff(genes_to_look_at, gff_file1)
+    
+    proteinDNA1 = extract_CDS_from_gff(gff_file1, fasta_file1, requested_genes)
+    proteinDNA2 = extract_CDS_from_gff(gff_file2, fasta_file2, requested_genes)
+    
+    new_columns = ["Gene Location Reference", "Protein ID Reference", "Start Reference", "End Reference", "Sequence Reference", "Gene Location Mutant", "Protein ID Mutant", "Start Mutant", "End Mutant", "Sequence Mutant"]
+    final_df =  pd.concat([proteinDNA1, proteinDNA2], axis=1).reindex(proteinDNA1.index)
+    
+    final_df = final_df.set_axis(new_columns, axis=1)
+    
+    final_df['pct_change'] = final_df.apply(
+        lambda row: get_DNA_pct_change(row['Sequence Reference'], row['Sequence Mutant']),
+        axis=1
+    )
+    
+    return final_df
 
 
-
-
+print(compare_genes(test_genes, gff_file, fasta_file, gff_file, mutated_fasta_file))
 
 
 
