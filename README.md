@@ -1,4 +1,4 @@
-# **Gen-ie**
+# **Gen-IE**
 
 ## **Overview**
 **Gen-ie** is a revolutionary genomic sequencing tool designed to facilitate early diagnosis of rare diseases. By analyzing **500 rare disease genes**, it identifies mutations in nitrogenous bases within DNA that contribute to disease development. **Gen-ie** processes the entire human genome, which consists of approximately **3 billion base pairs**, delivering precise insights into the genetic basis of rare diseases. This enables faster and more accurate diagnoses, significantly reducing the lengthy and challenging journey patients often face in obtaining a diagnosis.
