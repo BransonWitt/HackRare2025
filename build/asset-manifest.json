@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b584b054.css",
+    "main.js": "/static/js/main.a871cdfe.js",
+    "static/js/453.ed3810f9.chunk.js": "/static/js/453.ed3810f9.chunk.js",
+    "static/media/GenieBottleOfficial.png": "/static/media/GenieBottleOfficial.accb368299f4bec52fd1.png",
+    "index.html": "/index.html",
+    "main.b584b054.css.map": "/static/css/main.b584b054.css.map",
+    "main.a871cdfe.js.map": "/static/js/main.a871cdfe.js.map",
+    "453.ed3810f9.chunk.js.map": "/static/js/453.ed3810f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b584b054.css",
+    "static/js/main.a871cdfe.js"
+  ]
+}
