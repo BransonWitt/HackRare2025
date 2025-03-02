@@ -4,8 +4,8 @@ import pandas as pd
 import random
 
 # Read in the input FASTA file
-input_file = "C:\\Users\\brans\\Downloads\\ncbi_dataset\\ncbi_dataset\\data\\GCF_000001405.13\\GCF_000001405.13_GRCh37_genomic.fna"
-output_file = 'C:\\Users\\brans\\Downloads\\ncbi_dataset\\ncbi_dataset\\data\\GCF_000001405.13\\modified_proteins.fna'
+input_file = "C:\\Users\\brans\\Downloads\\Harvard_Hackathon\\GCF_000001405.13_GRCh37_genomic.fna"
+output_file = "C:\\Users\\brans\\Downloads\\Harvard_Hackathon\\modified_proteins.fna"
 
 #function to artificially mutate specific genes
 def artificialMutation(sequence, mutation_rate=0.04):
@@ -39,7 +39,7 @@ def replace_dna_segment(dna_sequence, start, end):
     Replaces a segment from start to end in the DNA sequence with a replacement sequence.
     """
     # Replace the segment in the sequence
-    return dna_sequence[:start] + artificialMutation(dna_sequence[start:end - 1]) + dna_sequence[end:]
+    return dna_sequence[:start] + artificialMutation(dna_sequence[start:end]) + dna_sequence[end:]
 
 # Specify the segments to replace for each sequence
 segments_to_replace = pd.read_csv("C:\\Users\\brans\\Downloads\\ncbi_dataset\\ncbi_dataset\\data\\GCF_000001405.13\\epilepsy.csv", index_col="Index")
