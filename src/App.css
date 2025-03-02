@@ -1,0 +1,315 @@
+/* Import Crimson Pro Font */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;800&display=swap');
+
+/* General Styles */
+body {
+  font-family: 'Crimson Pro', serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #202A44; /* Updated Color */
+  padding: 15px 60px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 90px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 80px;
+  max-height: 100px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Animated Gene-ie Text */
+.animated-text {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: white;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px;
+  animation: pulseGlow 5s infinite alternate ease-in-out;
+}
+
+/* Center Description, Matrix & Buttons */
+.info-container, .buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  max-width: 90%;
+}
+
+/* Description & Matrix */
+.description, .matrix {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  max-width: 500px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+/* Hover Effect */
+.description:hover, .matrix:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px auto;
+}
+
+/* Pathway & Medicine Buttons */
+.pathway-button, .medicine-button {
+  padding: 16px 35px;
+  border: none;
+  color: white;
+  font-size: 20px;
+  border-radius: 8px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pathway-button {
+  background-color: #918936;
+}
+
+.medicine-button {
+  background-color: #917153;
+}
+
+.pathway-button:hover {
+  background-color: #101a2b;
+  transform: scale(1.1);
+}
+
+.medicine-button:hover {
+  background-color: #917153;
+  transform: scale(1.1);
+}
+
+/* Responsive Design: Stack Sections on Small Screens */
+@media screen and (max-width: 768px) {
+  .info-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .description, .matrix {
+    max-width: 90%;
+  }
+}
+
+/* Searchable Dropdown */
+.search-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: 20px;
+}
+
+.search-section input {
+  width: 50%;
+  padding: 12px;
+  border: 2px solid #202A44;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+/* Dropdown List */
+.dropdown {
+  position: absolute;
+  background: white;
+  width: 50%;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+  list-style: none;
+  padding: 0;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown li:hover {
+  background: #f0f0f0;
+}
+
+/* Navigation Buttons */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-button {
+  background: white;
+  border: none;
+  color: #202A44;
+  font-size: 18px;
+  padding: 10px 22px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:hover {
+  background: #101a2b;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  background: #dfe8f2;
+  padding: 90px 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero h1 {
+  font-size: 50px;
+  font-weight: 800;
+  color: #202A44;
+  margin-bottom: 10px;
+  animation: slideDown 1.5s ease-in-out;
+}
+
+.hero p {
+  font-size: 22px;
+  font-weight: 400;
+  color: #333;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* Upload Section */
+.upload-section {
+  text-align: center;
+  margin-top: 30px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+/* Gene List */
+.genes {
+  text-align: center;
+  margin-top: 30px;
+  animation: fadeIn 2.5s ease-in-out;
+}
+
+.genes h2 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #202A44;
+}
+
+.genes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.genes li a {
+  color: #202A44;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.genes li a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #202A44;
+  color: white;
+  margin-top: 40px;
+  font-weight: bold;
+  font-size: 18px;
+  animation: fadeIn 3s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    text-shadow: 0px 0px 5px #fff, 0px 0px 10px #007bff;
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0px 0px 10px #fff, 0px 0px 20px #ffdd57;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0px 0px 5px #fff, 0px 0px 10px #007bff;
+  }
+}
