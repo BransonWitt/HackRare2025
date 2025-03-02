@@ -1,54 +1,70 @@
-# **Gen-IE**
+# Getting Started with Create React App
 
-## **Overview**
-**Gen-ie** is a revolutionary genomic sequencing tool designed to facilitate early diagnosis of rare diseases. By analyzing **500 rare disease genes**, it identifies mutations in nitrogenous bases within DNA that contribute to disease development. **Gen-ie** processes the entire human genome, which consists of approximately **3 billion base pairs**, delivering precise insights into the genetic basis of rare diseases. This enables faster and more accurate diagnoses, significantly reducing the lengthy and challenging journey patients often face in obtaining a diagnosis.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## **Background & Research**
-Whole-genome sequencing (**WGS**) has demonstrated transformative potential in rare disease research. A national health system study involving **13,037 participants** identified **95 Mendelian gene-disease associations**, confirming **79 as causal**. The study also uncovered **novel non-coding variants** that contribute to disease by disrupting critical genes such as *ARPC1B, GATA1, LRBA,* and *MPL*. These findings emphasize the power of **WGS** in advancing diagnostic and etiological discovery in clinical settings (**Turro et al., 2020**). 
+## Available Scripts
 
-## **Data Analysis & Scoring Matrix**
-**Gen-ie** utilizes the **ClinGen API** for individualized research on proteins and mutated genes. Key analytical parameters include:
-- **Mutation location**: Specific chromosome regions
-- **Haploinsufficiency & triplosensitivity**: Indicators of gene dosage sensitivity
-- **Hereditary inheritance patterns**: *X-linked, autosomal dominant/recessive*
+In the project directory, you can run:
 
-To quantify relevance, a **scoring matrix (1-10)** is implemented with color gradients based on the **ClinGen API** data. The relevance metric follows **standard operating procedures (SOPs):**
-- **Definitive (1.0)**, **Strong (0.9)**, **Moderate (0.5)**, **Weak (0.3)**
-- **No known disease (0.05)**, **Disputed (0.05)**, **Refuted (0.1)**
+### `npm start`
 
-Additionally, gene mutations are categorized based on their mechanisms:
-- **Loss of Function (LOF)**
-- **Gain of Function (GOF)**
-- **Dominant Negative (DN)**
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### **Key Findings**
-Through **UniProt** analysis:
-- **LOF mutations** correlate with **positive haploinsufficiency**, *X-linked recessive,* and *autosomal recessive* inheritance.
-- **GOF mutations** are associated with *autosomal dominant inheritance*, **positive triplosensitivity**, and mutations in chromosomal regions *2, 3, 6, 12, 13, 14, 17, and 19*.
-- **DN mutations** were assigned in cases where clinical research was insufficient.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## **Functionality**
-**Gen-ie** enables users to input a genome sequence in **FASTA format**. The system then:
-1. **Maps the sequence against a database** to detect mutations in **500 rare disease genes**.
-2. **Classifies genes based on mutation type** (*GOF, LOF, or DN*).
-3. **Generates a relevance score** based on published research data.
+### `npm test`
 
-Currently, the system operates at an estimated **70% efficiency** in sorting gene data functions, with the remaining **30% limited by data scarcity**. Future enhancements will focus on expanding research on understudied genes and incorporating predictive tools like **PolyPhen-2** to assess amino acid substitution effects on protein function.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## **Technical Stack**
-**Gen-ie** is built using:
-- **Python** for coding and data analysis
-- **ClinGen API** for gene relevance and inheritance research
-- **Reactome** for pathway identification
-- **PubMed & Google Scholar** for academic research
-- **UniProt & NIH resources** for protein and gene function analysis
-- **Excel** for gene mutation categorization
+### `npm run build`
 
-## **Future Improvements**
-- Enhancing data processing efficiency through broader gene research
-- Implementing **PolyPhen-2** to improve mutation impact prediction
-- Refining the user interface for better accessibility and efficiency
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## **Conclusion**
-**Gen-ie** represents a groundbreaking step in rare disease diagnosis, merging advanced genomic sequencing with a powerful analytical framework. By providing an **efficient, user-friendly, and research-oriented solution**, **Gen-ie** accelerates medical advancements and enhances patient care. This project underscores the importance of **collaboration**, leveraging diverse tools and research methodologies to drive innovation in genetic diagnostics.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
