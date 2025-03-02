@@ -116,12 +116,11 @@ def build_matrix_for_disease_with_sop(disease_name):
 
     # Convert to DataFrame
     matrix_df = pd.DataFrame(matrix_data)
-    print(matrix_df)
+    
+    return matrix_df
 
 # Test with example disease names
 def user_input_disease_classification():
     user_disease = input("Enter a disease name: ").strip()
     build_matrix_for_disease_with_sop(user_disease)
 
-# Run the function to accept user input
-user_input_disease_classification()

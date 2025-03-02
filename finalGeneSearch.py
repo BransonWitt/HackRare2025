@@ -74,6 +74,7 @@ def extract_CDS_from_gff(gff_file, fasta_file, requestedGeneID):
     #Reading the GFF file into a pandas dataframe
     gff_df = pd.read_csv(gff_file, comment="#", delimiter="\t", header=None)
     
+    
     #Searching through the dataframe to sort down to only entries that have to do with CDS 
     protein_coding = gff_df[gff_df[2] == 'CDS']
     gff_df = gff_df.reindex() #reindexing cut down version
@@ -86,7 +87,7 @@ def extract_CDS_from_gff(gff_file, fasta_file, requestedGeneID):
     #Shortening down dataframe even further to the proteins within the specific gene ids requested
     shortened = protein_coding[protein_coding['gene_ID'].isin(requestedGeneID)]
     
-    columns = ["Gene Location", "Protein Id", "Start", "End", "Sequence"]
+    columns = ["Gene Location", "Protein Id", "Start", "End", "Gene", "Sequence"]
     gene_information = []
     
     #Running through each entry in the severly cut down data frame into the refrenced position in the 
@@ -102,7 +103,7 @@ def extract_CDS_from_gff(gff_file, fasta_file, requestedGeneID):
         if strand == '-':
             sequence = sequence.reverse_complement()
         
-        gene_information.append([gene, protein_id, start, end, str(sequence)])
+        gene_information.append([gene, protein_id, start, end, row["gene_ID"], str(sequence)])
     
     gene_df = pd.DataFrame(gene_information, columns=columns)
     
@@ -132,6 +133,7 @@ def extract_genes_from_gff(geneCommonName:list, gff_file) -> list:
     #Filtering only the gene common names desired 
     gene_coding = gene_coding[gene_coding['Name'].isin(geneCommonName)]
     
+    
     #returning a list of the NIH gene IDs for the common gene names desires when input into the function originally
     requestedGeneIDColumn = gene_coding.get('gene_ID')
     requestedGeneID = requestedGeneIDColumn.to_list()
@@ -146,16 +148,39 @@ mutated_fasta_file = "C:\\Users\\brans\\Downloads\\Harvard_Hackathon\\modified_p
 test_genes = ['CTSB', 'SCN1A', 'ABAT', 'DNM1']
 #rGeneID = extract_genes_from_gff(test_genes, gff_file)
 
+def genes_name_dict(geneCommonName:list, gff_file) -> list:
+    """Takes the gff file and converts a list of geneCommonNames into the gene ids for the NIH
+
+    Args:
+        geneCommonName (list): list of the gommon internationally recognized gene names
+        gff_file (_type_): gff file location
+
+    Returns:
+        list: list of 
+    """
+    #Reads the gff file into a pandas data frame
+    gff_df = pd.read_csv(gff_file, comment="#", delimiter="\t", header=None)
+    
+    #Filtering out only the gene entries
+    gene_coding = gff_df[gff_df[2] == 'gene']
+    gene_coding = gene_coding.reindex() #reindex
+    
+    #Populating other columns using functions
+    gene_coding['Name'] = gene_coding[8].apply(get_gene_name)
+    gene_coding["gene_ID"] = gene_coding[8].apply(get_gene_id)
+    
+    #Filtering only the gene common names desired 
+    gene_coding = gene_coding[gene_coding['Name'].isin(geneCommonName)]
+    
+    
+    return gene_coding.set_index('gene_ID')['Name'].to_dict()
+
 #print(rGeneID)
 #extract_CDS_from_gff(gff_file, fasta_file, rGeneID)
 
 def get_DNA_pct_change(DNA1, DNA2):
     #Assuming the same length of each DNA and checking for similarity or difference
     assert(len(DNA1) == len(DNA2))
-    
-    print(DNA1)
-    print(DNA2)
-    print( )
     
     mutations = 0
     
@@ -168,7 +193,7 @@ def get_DNA_pct_change(DNA1, DNA2):
     return (mutations / len(DNA1))
 
 
-def compare_genes(genes_to_look_at, gff_file1, fasta_file1, gff_file2, fasta_file2):
+def compare_genes(gff_file1, fasta_file1, gff_file2, fasta_file2, genes_to_look_at=test_genes):
     
     #Transforming genes from international code like "ABAT" to a NIH Code like 1759
     requested_genes = extract_genes_from_gff(genes_to_look_at, gff_file1)
@@ -176,7 +201,7 @@ def compare_genes(genes_to_look_at, gff_file1, fasta_file1, gff_file2, fasta_fil
     proteinDNA1 = extract_CDS_from_gff(gff_file1, fasta_file1, requested_genes)
     proteinDNA2 = extract_CDS_from_gff(gff_file2, fasta_file2, requested_genes)
     
-    new_columns = ["Gene Location Reference", "Protein ID Reference", "Start Reference", "End Reference", "Sequence Reference", "Gene Location Mutant", "Protein ID Mutant", "Start Mutant", "End Mutant", "Sequence Mutant"]
+    new_columns = ["Gene Location Reference", "Protein ID Reference", "Start Reference",  "End Reference", "gene_ID1", "Sequence Reference", "Gene Location Mutant", "Protein ID Mutant", "Start Mutant", "End Mutant", "gene_ID2","Sequence Mutant"]
     final_df =  pd.concat([proteinDNA1, proteinDNA2], axis=1).reindex(proteinDNA1.index)
     
     final_df = final_df.set_axis(new_columns, axis=1)
@@ -189,23 +214,8 @@ def compare_genes(genes_to_look_at, gff_file1, fasta_file1, gff_file2, fasta_fil
     return final_df
 
 
-print(compare_genes(test_genes, gff_file, fasta_file, gff_file, mutated_fasta_file))
+#compare_genes(test_genes, gff_file, fasta_file, gff_file, mutated_fasta_file)
 
-
-
-#Sample Output
-"""
-Feature: NP_001005484.1
-Location: 69091 - 70008
-Sequence: TGGTGACTGAATTCATTTTTCTGGGTCTCTCTGATTCTCAGGAACTCCAGACCTTcctatttatgttgttttttgta
-TTCTATGGAGGAATCGTGTTTGGAAACCTTCTTATTGTCATAACAGTGGTATCTGACTCCCACCTTCACTCTCCCATGTACTTCCTG
-CTAGCCAACCTCTCACTCATTGATCTGTCTCTGTCTTCAGTCACAGCCCCCAAGATGATTACTGACTTTTTCAGCCAGCGCAAAGTC
-ATCTCTTTCAAGGGCTGCCTTGTTCagatatttctccttcacttctttgGTGGGAGTGAGATGGTGATCCTCATAGCCATGGGCTTT
-GACAGATATATAGCAATATGCAAGCCCCTACACTACACTACAATTATGTGTGGCAACGCATGTGTCGGCATTATGGCTGTCACATGG
-GGAATTGGCTTTCTCCATTCGGTGAGCCAGTTGGCGTTTGCCGTGCACTTACTCTTCTGTGGTCCCAATGAGGTCGATAGTTTTTAT
-TGTGACCTTCCTAGGGTAATCAAACTTGCCTGTACAGATACCTACAGGCTAGATATTATGGTCATTGCTAACAGTGGTGTGCTCACT
-GTGTGTTCTTTTGTTCTTCTAATCATCTCATACACTATCATCCTAATGACCATCCAGCATCGCCCTTTAGATAAGTCGTCCAAAGCT
-CTGTCCACTTTGACTGCTCACATTACAGTAGTTCTTTTGTTCTTTGGACCATGTGTCTTTATTTATGCCTGGCCATTCCCCATCAAG
-TCATTAGATAAATTCCTTGCTGTATTTTATTCTGTGATCACCCCTCTCTTGAACCCAATTATATACACACTGAGGAACAAAGACATG
-AAGACGGCAATAAGACAGCTGAGAAAATGGGATGCACATTCTAGTGTAAAGTTTTAG
-"""
+#Test genes -> genes of what the person inputted
+#Gff_file2 -> uploaded gff file
+#fasta_file2 -> uploaded fasta file
