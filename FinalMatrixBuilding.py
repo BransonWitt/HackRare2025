@@ -2,10 +2,9 @@ from filter_sufficiency import *
 from  finalGeneSearch import *
 import pandas as pd
 
-gff_ref = "genomic.gff"
-fna_ref = "GCF_000001405.13_GRCh37_genomic.fna"
 
-sample_mut = "modified_proteins.fna"
+gff_ref = "C:\\Users\\solom\\OneDrive\\Desktop\\HackathonProj\\ncbi_dataset\\data\\GCF_000001405.13\\genomic.gff"
+fna_ref = "C:\\Users\\solom\\OneDrive\\Desktop\\HackathonProj\\ncbi_dataset\\data\\GCF_000001405.13\\GCF_000001405.13_GRCh37_genomic.fna"
 
 def get_median_mut(gene, df):
     column = df[df["gene_ID1"] == gene]['pct_change']
@@ -33,7 +32,6 @@ def matrix(disease, gff_mut, fna_mut, gff_reference = gff_ref, fna_reference = f
     building_matrix["Median Mut"] = building_matrix['Gene'].apply(lambda x: get_median_mut(x, large_matrix))
     building_matrix["Mean Mut"] = building_matrix['Gene'].apply(lambda x: get_average_mut(x, large_matrix))
     
-    return(building_matrix)
+    return(building_matrix.to_string())
     
     
-matrix('developmental and epileptic encephalopathy', gff_ref, sample_mut)

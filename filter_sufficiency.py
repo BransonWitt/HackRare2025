@@ -1,6 +1,6 @@
 import pandas as pd
 
-file_path = "Matched_Clingen_Data.csv"
+file_path = "C:\\Users\\solom\\Downloads\\Matched_Clingen_Data.csv"
 df = pd.read_csv(file_path)
 
 # Standardize column names
