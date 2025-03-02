@@ -1,4 +1,4 @@
-Gene,Coefficient,SOP,LoF,GoF,DN,Median Mut,Mean Mut
+Index,Gene,Coefficient,SOP,LoF,GoF,DN,Median Mut,Mean Mut
 0,SCN1A,0.9,0.05,-,*,-,0.000000,0.000000
 1,CSTB,0.1,0.05,*,-,-,0.000000,0.000000
 2,ABAT,0.1,0.05,*,-,-,0.101351,0.103146
