@@ -1,11 +1,54 @@
-# Gen-ie
+# **Gen-ie**
 
-Gen-ie revolutionizes early diagnosis by harnessing the power of genomic sequencing to detect rare diseases, dramatically reducing patients' often lengthy and challenging journey to obtain a diagnosis. Our advanced sequencing engine can analyze and sequence 500 rare disease genes, identifying specific mutations in nitrogenous bases within DNA that drive disease development. By processing the entire human genome—comprising 3 billion base pairs—Gen-ie delivers precise insights into the genetic foundations of rare diseases, enabling faster and more accurate diagnoses.
-A compelling example of the transformative potential of whole-genome sequencing (WGS) comes from a national health system study that employed WGS to uncover new genetic causes and enhance the diagnosis of rare diseases. Among 13,037 participants, 1,138 out of 7,065 individuals with extensive phenotyping received a genetic diagnosis, including 9,802 patients with rare disorders. The study identified 95 Mendelian gene-disease associations, 11 discovered after 2015, with 79 confirmed as causal. Additionally, WGS revealed four novel non-coding variants contributing to disease by disrupting genes such as ARPC1B, GATA1, LRBA, and MPL. Data analysis from the UK Biobank further demonstrated that rare alleles influence extreme red blood cell traits. This research highlights the effectiveness of WGS in diagnostic and etiological discovery, advancing the study of rare diseases in clinical settings (Turro et al., 2020). WGS is undoubtedly the future of pharmacogenomics and rare disease diagnosis.
-For data analysis, we utilized the ClinGen API, focusing on individualized research into proteins and mutated genes. Key parameters included the gene region responsible for the mutation (e.g., specific chromosome), haploinsufficiency, triplosensitivity, and hereditary inheritance patterns (e.g., X-linked, Autosomal Dominant). We developed a scoring matrix (1-10) with a color gradient derived from data analyzed via the ClinGen API. Unique values were assigned to categories based on the relevance of research to the disease, using a metric system of standard operating procedures (SOPs). A higher SOP number indicates greater relevance. Relevance calculations were based on classifications such as definitive (1.0), strong (0.9), medium (0.5), weak (0.3), no known disease (0.05), disputed (0.05), and refuted (0.1). Additionally, gene mutations were categorized by their mechanisms, such as Loss of Function (LOF), Gain of Function (GOF), and Dominant Negative (DN), represented as columns in the matrix. 
-Through UniProt analysis, we found that positive haploinsufficiency and specific hereditary inheritance patterns, such as X-linked recessive and autosomal recessive, correlate with LOF. Conversely, GOF was associated with autosomal dominant inheritance, positive triplosensitivity, and mutations in chromosomal regions 2, 3, 6, 12, 13, 14, 17, and 19. However, some data were incomplete or lacked clinical research, leading us to classify the remaining gene mutations as DN using a process of elimination.
-When a user inputs a genome sequence in FASTA format, the system maps it against our database to check for mutations in the 500 rare disease genes. It also identifies whether the gene is associated with GOF, LOF, or DN, along with a relevancy score based on the studies conducted on the gene. The system achieves an estimated 70% efficiency in sorting gene data functions, with the remaining 30% limited by insufficient data. The framework is designed for efficiency, featuring a sleek, user-friendly interface with multifunctional capabilities tailored for senior researchers. In the future, data processing efficiency can be improved by expanding research on understudied genes and implementing tools like PolyPhen-2 to predict the potential impact of amino acid substitutions on protein structure and function based on physical and comparative considerations.
-This project exemplified exceptional teamwork and synergy, with all participants collaborating effectively and leveraging each other's strengths. We used Excel for gene mutation categorization, Python for coding, Reactome to identify pathways and their links, PubMed for data research, UniProt for individualized protein and gene analysis, Google Scholar for academic paper searches, and NIH resources for cross-referencing protein functions and locations.
-In summary, Gen-ie represents a groundbreaking advancement in diagnosing rare diseases, combining cutting-edge genomic sequencing with a robust analytical framework to provide accurate, efficient, and user-friendly solutions for researchers and clinicians alike. By addressing the challenges of rare disease diagnosis, Gen-ie paves the way for faster, more precise medical interventions, ultimately improving patient outcomes and transforming the landscape of rare disease research and treatment.
+## **Overview**
+**Gen-ie** is a revolutionary genomic sequencing tool designed to facilitate early diagnosis of rare diseases. By analyzing **500 rare disease genes**, it identifies mutations in nitrogenous bases within DNA that contribute to disease development. **Gen-ie** processes the entire human genome, which consists of approximately **3 billion base pairs**, delivering precise insights into the genetic basis of rare diseases. This enables faster and more accurate diagnoses, significantly reducing the lengthy and challenging journey patients often face in obtaining a diagnosis.
 
-![image](https://github.com/user-attachments/assets/d02138e1-bb8c-4676-8246-0dbf57e6e920)
+## **Background & Research**
+Whole-genome sequencing (**WGS**) has demonstrated transformative potential in rare disease research. A national health system study involving **13,037 participants** identified **95 Mendelian gene-disease associations**, confirming **79 as causal**. The study also uncovered **novel non-coding variants** that contribute to disease by disrupting critical genes such as *ARPC1B, GATA1, LRBA,* and *MPL*. These findings emphasize the power of **WGS** in advancing diagnostic and etiological discovery in clinical settings (**Turro et al., 2020**). 
+
+## **Data Analysis & Scoring Matrix**
+**Gen-ie** utilizes the **ClinGen API** for individualized research on proteins and mutated genes. Key analytical parameters include:
+- **Mutation location**: Specific chromosome regions
+- **Haploinsufficiency & triplosensitivity**: Indicators of gene dosage sensitivity
+- **Hereditary inheritance patterns**: *X-linked, autosomal dominant/recessive*
+
+To quantify relevance, a **scoring matrix (1-10)** is implemented with color gradients based on the **ClinGen API** data. The relevance metric follows **standard operating procedures (SOPs):**
+- **Definitive (1.0)**, **Strong (0.9)**, **Moderate (0.5)**, **Weak (0.3)**
+- **No known disease (0.05)**, **Disputed (0.05)**, **Refuted (0.1)**
+
+Additionally, gene mutations are categorized based on their mechanisms:
+- **Loss of Function (LOF)**
+- **Gain of Function (GOF)**
+- **Dominant Negative (DN)**
+
+### **Key Findings**
+Through **UniProt** analysis:
+- **LOF mutations** correlate with **positive haploinsufficiency**, *X-linked recessive,* and *autosomal recessive* inheritance.
+- **GOF mutations** are associated with *autosomal dominant inheritance*, **positive triplosensitivity**, and mutations in chromosomal regions *2, 3, 6, 12, 13, 14, 17, and 19*.
+- **DN mutations** were assigned in cases where clinical research was insufficient.
+
+## **Functionality**
+**Gen-ie** enables users to input a genome sequence in **FASTA format**. The system then:
+1. **Maps the sequence against a database** to detect mutations in **500 rare disease genes**.
+2. **Classifies genes based on mutation type** (*GOF, LOF, or DN*).
+3. **Generates a relevance score** based on published research data.
+
+Currently, the system operates at an estimated **70% efficiency** in sorting gene data functions, with the remaining **30% limited by data scarcity**. Future enhancements will focus on expanding research on understudied genes and incorporating predictive tools like **PolyPhen-2** to assess amino acid substitution effects on protein function.
+
+## **Technical Stack**
+**Gen-ie** is built using:
+- **Python** for coding and data analysis
+- **ClinGen API** for gene relevance and inheritance research
+- **Reactome** for pathway identification
+- **PubMed & Google Scholar** for academic research
+- **UniProt & NIH resources** for protein and gene function analysis
+- **Excel** for gene mutation categorization
+
+## **Future Improvements**
+- Enhancing data processing efficiency through broader gene research
+- Implementing **PolyPhen-2** to improve mutation impact prediction
+- Refining the user interface for better accessibility and efficiency
+
+## **Conclusion**
+**Gen-ie** represents a groundbreaking step in rare disease diagnosis, merging advanced genomic sequencing with a powerful analytical framework. By providing an **efficient, user-friendly, and research-oriented solution**, **Gen-ie** accelerates medical advancements and enhances patient care. This project underscores the importance of **collaboration**, leveraging diverse tools and research methodologies to drive innovation in genetic diagnostics.
+
